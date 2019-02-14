@@ -1,0 +1,25 @@
+sudo: required
+services:
+  - docker
+
+  before_install:
+    - docker build -t iftikharmahmood/react-test -f ./client/Docekerfile.dev ./client
+    - docker build -t iftikharmahmood/react-test -f ./nginx/Docekerfile.dev ./nginx
+    - docker build -t iftikharmahmood/react-test -f ./server/Docekerfile.dev ./server
+    - docker build -t iftikharmahmood/react-test -f ./cworker/Docekerfile.dev ./worker
+
+script:
+  - docker run iftikharmahmood/react-test npm test -- --coverage
+
+after_success:
+  - docker build -t iftikharmahmood/multi-client ./client
+  - docker build -t iftikharmahmood/multi-nginx ./nginx
+  - docker build -t iftikharmahmood/multi-server ./server 
+  - docker build -t iftikharmahmood/multi-worker ./worker 
+  # Log in to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
+  # take those images and push them to docker hub
+  -docker push iftikharmahmood/multi-client
+  -docker push iftikharmahmood/multi-nginx
+  -docker push iftikharmahmood/multi-server
+  -docker push iftikharmahmood/multi-worker 
