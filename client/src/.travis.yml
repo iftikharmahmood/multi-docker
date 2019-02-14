@@ -22,4 +22,5 @@ after_success:
   -docker push iftikharmahmood/multi-client
   -docker push iftikharmahmood/multi-nginx
   -docker push iftikharmahmood/multi-server
-  -docker push iftikharmahmood/multi-worker 
+  -docker push iftikharmahmood/multi-worker
+  
