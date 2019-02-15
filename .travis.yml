@@ -6,7 +6,7 @@ before_install:
   - docker build -t iftikharmahmood/react-test -f ./client/Dockerfile.dev ./client
   - docker build -t iftikharmahmood/react-test -f ./nginx/Dockerfile.dev ./nginx
   - docker build -t iftikharmahmood/react-test -f ./server/Dockerfile.dev ./server
-  - docker build -t iftikharmahmood/react-test -f ./cworker/Dockerfile.dev ./worker
+  - docker build -t iftikharmahmood/react-test -f ./worker/Dockerfile.dev ./worker
 
 script:
   - docker run iftikharmahmood/react-test npm test -- --coverage
