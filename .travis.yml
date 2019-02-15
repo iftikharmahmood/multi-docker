@@ -3,10 +3,10 @@ services:
   - docker
 
 before_install:
-  - docker build -t iftikharmahmood/react-test -f ./client/Dockerfile.dev ./client
-  - docker build -t iftikharmahmood/react-test -f ./nginx/Dockerfile.dev ./nginx
-  - docker build -t iftikharmahmood/react-test -f ./server/Dockerfile.dev ./server
-  - docker build -t iftikharmahmood/react-test -f ./worker/Dockerfile.dev ./worker
+  - docker build -t iftikharmahmood/multi-client -f ./client/Dockerfile.dev ./client
+  - docker build -t iftikharmahmood/multi-nginx -f ./nginx/Dockerfile.dev ./nginx
+  - docker build -t iftikharmahmood/multi-server -f ./server/Dockerfile.dev ./server
+  - docker build -t iftikharmahmood/multi-worker -f ./worker/Dockerfile.dev ./worker
 
 script:
   - docker run iftikharmahmood/react-test npm test -- --coverage
@@ -19,7 +19,7 @@ after_success:
   # Log in to the docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "DOCKER_ID" --password-stdin
   # take those images and push them to docker hub
-  - docker push iftikharmahmood/multi-client:multi-docker
-  - docker push iftikharmahmood/multi-nginx:multi-docker
-  - docker push iftikharmahmood/multi-server:multi-docker
-  - docker push iftikharmahmood/multi-worker:multi-docker
+  - docker push iftikharmahmood/multi-client
+  - docker push iftikharmahmood/multi-nginx
+  - docker push iftikharmahmood/multi-server
+  - docker push iftikharmahmood/multi-worker
